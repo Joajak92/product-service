@@ -2,9 +2,9 @@ package se.iths.joakim.productservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import se.iths.joakim.productservice.ProductNotFoundException;
 import se.iths.joakim.productservice.dto.ProductRequestDto;
 import se.iths.joakim.productservice.dto.ProductResponseDto;
+import se.iths.joakim.productservice.exception.ProductNotFoundException;
 import se.iths.joakim.productservice.mapper.ProductMapper;
 import se.iths.joakim.productservice.model.Product;
 import se.iths.joakim.productservice.repository.ProductRepository;

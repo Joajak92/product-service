@@ -1,6 +1,9 @@
 package se.iths.joakim.productservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.joakim.productservice.dto.ProductRequestDto;
 import se.iths.joakim.productservice.dto.ProductResponseDto;
@@ -16,22 +19,23 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<ProductResponseDto> getAllProducts() {
-        return productService.findAll();
+    public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDto getProductById(@PathVariable Long id) {
-        return productService.findById(id);
+    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findById(id));
     }
 
     @PostMapping
-    public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto) {
-        return productService.create(productRequestDto);
+    public ResponseEntity<ProductResponseDto> createProduct(@Valid @RequestBody ProductRequestDto productRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(productRequestDto));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

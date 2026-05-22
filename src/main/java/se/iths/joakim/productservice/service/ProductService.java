@@ -45,4 +45,14 @@ public class ProductService {
         Product product = getProduct(id);
         productRepository.delete(product);
     }
+
+//    @Transactional
+//    public List<ProductResponseDto> decreaseStock(
+//            List<ProductStockRequest> requestedProducts) {
+//// hämta alla produkter
+//// kontrollera att varje produkt verkligen finns och att stock räcker
+//// kasta exception om inte en produkt finns eller stock inte räcker
+//// minska stock
+//// returnera produktinfo
+//    }
 }

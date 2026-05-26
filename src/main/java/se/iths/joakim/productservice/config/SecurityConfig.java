@@ -56,7 +56,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtDecoder jwtDecoder(
-            @Value("${auth-server-url}") String authServerUrl) {
+            @Value("${app.auth-server-url}") String authServerUrl) {
         NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder
                 .withJwkSetUri(authServerUrl + "/auth/jwks")
                 .build();

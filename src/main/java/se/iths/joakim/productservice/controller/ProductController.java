@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.iths.joakim.productservice.dto.CreateOrderRequest;
 import se.iths.joakim.productservice.dto.ProductRequestDto;
 import se.iths.joakim.productservice.dto.ProductResponseDto;
 import se.iths.joakim.productservice.service.ProductService;
@@ -37,5 +38,11 @@ public class ProductController {
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/stock/decrease")
+    public ResponseEntity<List<ProductResponseDto>> decreaseStock(
+            @RequestBody CreateOrderRequest orderRequest) {
+        return ResponseEntity.ok(productService.decreaseStock(orderRequest.items()));
     }
 }

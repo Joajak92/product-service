@@ -54,6 +54,7 @@ public class ProductService {
     public List<ProductResponseDto> decreaseStock(
             List<ProductStockRequest> requestedProducts) {
         List<ProductResponseDto> result = new ArrayList<>();
+
         if (requestedProducts == null || requestedProducts.isEmpty()) {
             return result;
         }
@@ -65,15 +66,14 @@ public class ProductService {
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new ProductNotFoundException(productId));
 
-            int currentStock;
-            currentStock = product.getStock() == null ? 0 : Integer.parseInt(product.getStock());
+            int currentStock = product.getStock();
             int newStock = currentStock - quantity;
 
             if (newStock < 0) {
                 throw new NotEnoughStockException("Not enough stock for product id: " + productId);
             }
 
-            product.setStock(String.valueOf(newStock));
+            product.setStock(newStock);
             productRepository.save(product);
 
             ProductResponseDto responseDto = productMapper.toDto(product);

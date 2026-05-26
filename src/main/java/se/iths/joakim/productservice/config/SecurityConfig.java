@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
@@ -41,10 +40,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
-        return http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/products", "/products/**").hasAnyRole("USER", "ADMIN")
+        http.authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/products/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole("ADMIN")
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
@@ -53,17 +50,19 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 )
-                .build();
+                .csrf(csrf -> csrf.disable());
+        return http.build();
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(@Value("${app.auth-server-url}") String authServerUrl) {
+    public JwtDecoder jwtDecoder(
+            @Value("${app.auth-server-url}") String authServerUrl) {
         NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder
                 .withJwkSetUri(authServerUrl + "/auth/jwks")
                 .build();
 
-        jwtDecoder.setJwtValidator(
-                JwtValidators.createDefaultWithIssuer(authServerUrl));
+//        jwtDecoder.setJwtValidator(
+//                JwtValidators.createDefaultWithIssuer(authServerUrl));
 
         return jwtDecoder;
 

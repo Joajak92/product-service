@@ -5,6 +5,6 @@ public record ProductResponseDto(
         String name,
         String description,
         Double price,
-        String stock
+        int stock
 ) {
 }

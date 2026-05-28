@@ -30,7 +30,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Build Docker image
-        run: docker build -t joajak92/product-service:latest .
+        run: docker build -t joajak92/product-service:v1.0.1 .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -39,4 +39,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Docker image to Docker Hub
-        run: docker push joajak92/product-service:latest
+        run: docker push joajak92/product-service:v1.0.1

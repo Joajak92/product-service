@@ -16,6 +16,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -107,7 +108,7 @@ public class ProductIntegrationTest {
                         .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_ADMIN"))))
                 .andExpect(status().isNoContent());
 
-        assert productRepository.findById(product.getId()).isEmpty();
+        assertTrue(productRepository.findById(product.getId()).isEmpty());
     }
 
     @Test

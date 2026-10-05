@@ -41,7 +41,7 @@ public class ProductIntegrationTest {
 
     @Test
     void shouldCreateProduct() throws Exception {
-        ProductRequestDto request = new ProductRequestDto("Samsung TV", "Samsung smart-tv", 8999.0, 8);
+        ProductRequestDto request = new ProductRequestDto("Samsung TV", "Samsung smart-tv", 8999.0, 8, "Electronics", "https://example.com");
 
         mockMvc.perform(post("/products")
                         .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_ADMIN")))
@@ -52,7 +52,9 @@ public class ProductIntegrationTest {
                 .andExpect(jsonPath("$.name").value("Samsung TV"))
                 .andExpect(jsonPath("$.description").value("Samsung smart-tv"))
                 .andExpect(jsonPath("$.price").value(8999))
-                .andExpect(jsonPath("$.stock").value(8));
+                .andExpect(jsonPath("$.stock").value(8))
+                .andExpect(jsonPath("$.category").value("Electronics"))
+                .andExpect(jsonPath("$.imgUrl").value("https://example.com"));
     }
 
     @Test

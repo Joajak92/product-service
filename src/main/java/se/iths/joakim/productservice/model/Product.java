@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "product")
 @Getter
 @Setter
 public class Product {
@@ -18,4 +19,7 @@ public class Product {
     @Column(nullable = false)
     private Double price;
     private int stock;
+    private String category;
+    @Column(name = "img_url")
+    private String imgUrl;
 }

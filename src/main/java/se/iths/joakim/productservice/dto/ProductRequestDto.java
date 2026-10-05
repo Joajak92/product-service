@@ -10,6 +10,8 @@ public record ProductRequestDto(
         String description,
         @NotNull(message = "Price is required")
         Double price,
-        int stock
+        int stock,
+        String category,
+        String imgUrl
 ) {
 }

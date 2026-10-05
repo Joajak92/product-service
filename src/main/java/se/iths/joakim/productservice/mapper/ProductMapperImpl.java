@@ -18,6 +18,8 @@ public class ProductMapperImpl implements ProductMapper {
         product.setDescription(productRequestDto.description());
         product.setPrice(productRequestDto.price());
         product.setStock(productRequestDto.stock());
+        product.setCategory(productRequestDto.category());
+        product.setImgUrl(productRequestDto.imgUrl());
 
         return product;
     }
@@ -33,7 +35,9 @@ public class ProductMapperImpl implements ProductMapper {
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getStock()
+                product.getStock(),
+                product.getCategory(),
+                product.getImgUrl()
         );
     }
 }

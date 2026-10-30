@@ -18,10 +18,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Konfigurerar CORS och säkerhetsregler för produktservicen.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Konfigurerar tillåtna CORS-anrop.
+     *
+     * @return källa med CORS-konfiguration för alla API-sökvägar
+     */
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -33,6 +41,11 @@ public class SecurityConfig {
         return source;
     }
 
+    /**
+     * Konfigurerar JWT-autentiseringen.
+     *
+     * @return en konverterare för JWT-autentisering
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
@@ -52,6 +65,13 @@ public class SecurityConfig {
         return converter;
     }
 
+    /**
+     * Konfigurerar HTTP-säkerhet, åtkomstregler och JWT-baserad autentisering.
+     *
+     * @param http Spring Securitys HTTP-konfiguration
+     * @return den färdiga säkerhetsfilterkedjan
+     * @throws Exception om säkerhetskonfigurationen inte kan byggas
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http
@@ -71,6 +91,12 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Skapar en JWT-dekoder som hämtar nycklar från auth-servicens JWKS-endpoint.
+     *
+     * @param authServerUrl bas-URL till auth-servicen
+     * @return JWT-dekoder för validering av inkommande token
+     */
     @Bean
     public JwtDecoder jwtDecoder(
             @Value("${app.auth-server-url}") String authServerUrl) {

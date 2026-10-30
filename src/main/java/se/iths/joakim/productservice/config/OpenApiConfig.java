@@ -9,8 +9,18 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Konfigurerar OpenAPI-dokumentationen och JWT-baserad autentisering
+ * för produktservicens API.
+ */
 @Configuration
 public class OpenApiConfig {
+
+    /**
+     * Skapar OpenAPI-konfigurationen för produktservicens API.
+     *
+     * @return OpenAPI-konfiguration med API-information och Bearer-authentication
+     */
     @Bean
     public OpenAPI openAPI() {
 

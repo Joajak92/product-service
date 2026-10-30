@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * JPA-entitet som representerar en produkt i produktkatalogen.
+ */
 @Entity
 @Table(name = "product")
 @Getter

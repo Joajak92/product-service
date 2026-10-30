@@ -4,6 +4,9 @@ import se.iths.joakim.productservice.dto.ProductRequestDto;
 import se.iths.joakim.productservice.dto.ProductResponseDto;
 import se.iths.joakim.productservice.model.Product;
 
+/**
+ * Konverterar mellan produktentiteter och produktens DTO-objekt.
+ */
 public interface ProductMapper {
 
     Product toEntity(ProductRequestDto productRequestDto);

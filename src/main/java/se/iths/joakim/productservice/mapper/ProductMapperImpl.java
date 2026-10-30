@@ -5,6 +5,9 @@ import se.iths.joakim.productservice.dto.ProductRequestDto;
 import se.iths.joakim.productservice.dto.ProductResponseDto;
 import se.iths.joakim.productservice.model.Product;
 
+/**
+ * Implementation av {@link ProductMapper}.
+ */
 @Component
 public class ProductMapperImpl implements ProductMapper {
 
